@@ -1,0 +1,56 @@
+/* This is all placeholder, feel free to change */
+
+body {
+  background-color: #4286f4;
+}
+a {
+   pointer-events: none;
+ cursor: default;
+}
+.mainHeader {
+  font-family: 'Sigmar One', cursive;
+  font-size: 50px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.subHeader {
+  font-family: 'Passion One', sans-serif;
+  font-size: 30px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.pointCount {
+  font-family: 'Passion One', sans-serif;
+  font-size: 40px;
+  color: #ffffff;
+}
+
+.teamImage {
+  width: 220px;
+  height: 220px;
+  background-color: white;
+  border: 6px solid #ffffff;  
+  /*float: left;*/
+  margin: 20px;
+  overflow: hidden;
+  
+  -webkit-box-shadow: 5px 5px 10px #111;
+          box-shadow: 5px 5px 10px #111;  
+}
+.teamImage:hover {
+   border: 6px solid #028742;
+}
+/*.teamImage:click {*/
+/*   border: 6px solid #ffffff;*/
+/*   background-color: #919191;*/
+/*}*/
+
+
+
+.headerImage {
+  width: 350px;
+  /*background-repeat: repeat-x;*/
+  /*float: middle;*/
+}
