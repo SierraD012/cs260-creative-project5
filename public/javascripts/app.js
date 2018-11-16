@@ -7,36 +7,18 @@ app.directive('battle', battleDirective);
 app.directive('login', loginDirective);
 
 function clickerCtrl($scope, $http) {
+    document.getElementById('id01').style.display='block'
     console.log(">NG:CLICKERCTRL called");
 
     $scope.redPoints = 0;
     $scope.bluePoints = 0;
     $scope.yellowPoints = 0;
+    $scope.greenPoints = 0;
 
     var red = 0;
     var blue = 0;
     var yellow = 0;
-
-
-    var start = function() {
-        $.get('http://54.236.42.112:4200/', function(httpResponse) {
-            console.log('response:', httpResponse);
-            var colors = JSON.parse(httpResponse)
-            console.log(colors)
-            red = colors.red;
-            blue = colors.blue;
-            yellow = colors.yellow
-            var innerCollors = [red, blue, yellow]
-            console.log(innerCollors)
-
-            $scope.redPoints = colors.red
-            $scope.bluePoints = colors.blue
-            $scope.yellowPoints = colors.yellow
-
-            updateTextFields($scope);
-            updateBackground($scope);
-        })
-    }
+    var green = 0;
 
     $scope.addPoint = function(teamColor) {
 
@@ -46,41 +28,19 @@ function clickerCtrl($scope, $http) {
             console.log(colors)
             red = colors.red;
             blue = colors.blue;
-            yellow = colors.yellow
-            var innerCollors = [red, blue, yellow]
+            yellow = colors.yellow;
+            green = colors.green;
+            var innerCollors = [red, blue, yellow, green]
             console.log(innerCollors)
 
-            $scope.redPoints = colors.red
-            $scope.bluePoints = colors.blue
-            $scope.yellowPoints = colors.yellow
+            $scope.redPoints = colors.red;
+            $scope.bluePoints = colors.blue;
+            $scope.yellowPoints = colors.yellow;
+            $scope.greenPoints = colors.green;
 
             updateTextFields($scope);
             updateBackground($scope);
 
-            console.log("\t>AddPoint(): done, scores: R=" + $scope.redPoints + ", B=" + $scope.bluePoints + ", Y=" + $scope.yellowPoints);
-        });
-    };
-
-    $scope.secretTunnels = function(teamColor) {
-        $.post('http://54.236.42.112:4200/secretTunnels', { color: teamColor }, function(httpResponse) {
-            console.log('response:', httpResponse);
-            var colors = JSON.parse(httpResponse)
-            console.log(colors)
-            red = colors.red;
-            blue = colors.blue;
-            yellow = colors.yellow
-            var innerCollors = [red, blue, yellow]
-            console.log(innerCollors)
-
-            $scope.redPoints = colors.red
-            $scope.bluePoints = colors.blue
-            $scope.yellowPoints = colors.yellow
-
-
-            updateTextFields($scope);
-            updateBackground($scope);
-
-            console.log("\t>AddPoint(): done, scores: R=" + $scope.redPoints + ", B=" + $scope.bluePoints + ", Y=" + $scope.yellowPoints);
         });
     };
 }
