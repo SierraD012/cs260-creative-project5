@@ -49,9 +49,7 @@ var sendResponse = function(res) {
     console.log(teams);
     users.find({}).toArray(function(err, users) {
       if (err) throw err;
-      var toReturn;
-      toReturn.users = users
-      toReturn.teams = teams
+      var toReturn = {users: users, teams: teams}
       res.json(toReturn)
     })
   });
@@ -74,6 +72,7 @@ var incrementUser = function(username) {
 app.post('/user', function(req, res) {
   console.log("Incoming user ...")
   var data = req.body;
+  console.log(data)
   var username = data.username;
   users.insertOne(PointObject(username, 0), function(err, innerResponse){
     if(err) throw err;
@@ -81,6 +80,9 @@ app.post('/user', function(req, res) {
   })
 })
 // The controller/functions etc are in the inner app.js file (public/javascripts/app.js) cuz that's the only way I could get it to work 
+app.listen(4202, function() {
+  console.log("Server listening on port 4202")
+})
 
 module.exports = app;
 
@@ -107,7 +109,6 @@ MongoClient.connect(url, function(err, db) {
     houses = res
 
     houses.stats(function(err, stats) {
-      console.log("getting stats")
       if (err) { console.log(err) }
       if (stats.count == 0) { // If we havent inserted before, put the default in
       console.log("Initializing collection houses")
