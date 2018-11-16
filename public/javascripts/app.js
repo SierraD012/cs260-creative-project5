@@ -22,6 +22,8 @@ function clickerCtrl($scope, $http) {
     var green = 0;
 
     $scope.userName = function(userName){
+        console.log("The userName should be updated and sent to server");
+        
         
         $scope.userName = userName;
         $.get('http://54.236.42.112:4200/', {user : userName}, function(httpResponse){
