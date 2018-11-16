@@ -4,12 +4,12 @@ var app = window.angular.module('clickerApp', []);
 
 app.controller('clickerCtrl', clickerCtrl);
 app.directive('battle', battleDirective);
-app.directive('login', loginDirective);
 
 function clickerCtrl($scope, $http) {
     document.getElementById('id01').style.display='block'
     console.log(">NG:CLICKERCTRL called");
-
+    
+    $scope.userName = "";
     $scope.redPoints = 0;
     $scope.bluePoints = 0;
     $scope.yellowPoints = 0;
@@ -21,12 +21,10 @@ function clickerCtrl($scope, $http) {
     var yellow = 0;
     var green = 0;
 
-    $scope.userName = function(userName){
+    $scope.login = function(){
         console.log("The userName should be updated and sent to server");
-        
-        
-        $scope.userName = userName;
-        $.get('http://54.236.42.112:4200/', {user : userName}, function(httpResponse){
+        document.getElementById('id01').style.display='none'
+        $.get('http://54.236.42.112:4200/', {user : $scope.userName}, function(httpResponse){
            console.log("Initialising the data", httpResponse);
            
            

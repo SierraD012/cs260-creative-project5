@@ -16,11 +16,11 @@
   <link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
   <link href="https://fonts.googleapis.com/css?family=Cinzel+Decorative" rel="stylesheet">
 
-  
+
   <script src="javascripts/app.js"></script>
   <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
 
-  
+
   <title>CP5: House War</title>
 </head>
 
@@ -41,30 +41,22 @@
     <h2 class='subHeader'>Click on a house to add a point!</h2>
     <hr>
   
-    <div id='appDivMain' ng-app='clickerApp' ng-controller='clickerCtrl'>
-  
-      <battle></battle>
-  
-    </div>  
+  <div id='appDivMain' ng-app='clickerApp' ng-controller='clickerCtrl'>
+
+    <battle></battle>
+
+    <!-- The Modal -->
+    <div id="id01" class="modal">
+      <!-- Modal Content -->
+      <div class="modal-content animate">
+        <div class="container" >
+          <label><b>Username</b></label>
+          <input type="text" placeholder="Enter Username" ng-model='userName'>
+          <button type="submit" ng-click='login()' >Login</button>
+        </div>
+      </div>
+    </div>
   </div>
 
 </body>
-
-<!-- The Modal -->
-<div id="id01" class="modal">
-  <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal" ng-submit='userName(user)'>
-    &times;
-    </span>
-
-  <!-- Modal Content -->
-  <div class="modal-content animate">
-
-    <div class="container">
-      <label for="uname" class="modalHeader"><b>Username</b></label>
-      <input type="text" placeholder="Enter Username" name="uname" ng-model='user' required>
-      <button type="submit">Login</button>
-    </div>
-  </div>
-</div>
-
 </html>
