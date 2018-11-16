@@ -126,11 +126,5 @@ function battleDirective() {
                 '</div>' +
             '</div>'
         ),
-        link: link
     };
-
-    function link(scope) {
-        //code this later
-        //hey james why did we have this again -sierra
-    }
 }
