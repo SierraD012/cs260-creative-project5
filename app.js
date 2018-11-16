@@ -49,7 +49,7 @@ var sendResponse = function(res) {
     console.log(teams);
     users.find({}).toArray(function(err, users) {
       if (err) throw err;
-      var toReturn = {users: users, teams: teams}
+      var toReturn = { users: users, teams: teams }
       res.json(toReturn)
     })
   });
@@ -74,10 +74,24 @@ app.post('/user', function(req, res) {
   var data = req.body;
   console.log(data)
   var username = data.username;
-  users.insertOne(PointObject(username, 0), function(err, innerResponse){
-    if(err) throw err;
+  if(!username){
     sendResponse(res)
+    return;
+  }
+  users.find({ name: username }).toArray(function(err, result) {
+
+    if (err) throw err;
+    if (result.length == 0) {
+      users.insertOne(PointObject(username, 0), function(err, innerResponse) {
+        if (err) throw err;
+        sendResponse(res)
+      })
+    }
+    else {
+      sendResponse(res)
+    }
   })
+
 })
 // The controller/functions etc are in the inner app.js file (public/javascripts/app.js) cuz that's the only way I could get it to work 
 app.listen(4202, function() {
@@ -111,8 +125,8 @@ MongoClient.connect(url, function(err, db) {
     houses.stats(function(err, stats) {
       if (err) { console.log(err) }
       if (stats.count == 0) { // If we havent inserted before, put the default in
-      console.log("Initializing collection houses")
-      console.log(initialHouses)
+        console.log("Initializing collection houses")
+        console.log(initialHouses)
         houses.insertMany(initialHouses, function(err, result) {
           console.log("Attempting to initialize db")
           if (err) { console.log(err) }
@@ -120,10 +134,11 @@ MongoClient.connect(url, function(err, db) {
             console.log('Inserted documents into the "houses" collection. The documents inserted with "_id" are:', result.count, result);
           }
         });
-      } else{
-        
       }
-      
+      else {
+
+      }
+
     });
   });
 
