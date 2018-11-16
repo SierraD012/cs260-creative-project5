@@ -1,22 +1,27 @@
-tosend:
+//Client sends this when Posting to server via addPoint()
 {
-red: value,
-green: value,
-blue: value,
-yellow: value,
-username: value,
+    red: value,
+    green: value,
+    blue: value,
+    yellow: value,
+    username: value,
 }
 
+//Client sends this when Posting to server via login()
 {
-username: value
+    username: value
 }
 
 
-to receive: 
+
+
+
+
+//Client receives this after each Post, for both addPoint() and login()
 {
-users: [{username: value, clicks: value}],
-red: value,
-green: value,
-blue: value,
-yellow: value
+    users: [{username: value, clicks: value}],
+    red: value,
+    green: value,
+    blue: value,
+    yellow: value
 }
