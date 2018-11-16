@@ -7,44 +7,43 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
-  <link href="https://fonts.googleapis.com/css?family=Sigmar+One" rel="stylesheet" type='text/css'>
   <link href="https://fonts.googleapis.com/css?family=Russo+One" rel="stylesheet" type='text/css'>
   
   <script src="javascripts/app.js"></script>
   <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
 
   
-  <title>CP5: Click Battle</title>
+  <title>CP5: ClickWar</title>
 </head>
 <body id ="mainBody">
 
-  <!-- This is just placeholder, you can totally move/change all of this around -->
-  <h1 class='mainHeader'><a ng-click="secretTunnels('red')" class="mainHeader">U</a>LTIMATE CLICK BATTLE</h1>
-  
-  <div style="text-align: center">
-    <img src="images/fire.png" class='headerImage'>
-  </div>
-  
-  <h2 class='subHeader'>Click on a team <a ng-click="secretTunnels('blue')" class='subHeader'>t</a>o give them a point!</h2>
+  <h1 class='mainHeader'>CLICKWAR</h1>
+  <h2 class='subHeader'>Click on a team to give them a point!</h2>
   <hr>
   
   <div id='appDivMain' ng-app='clickerApp' ng-controller='clickerCtrl'>
   
     <div class="container text-center"> 
       <div class="row">
-        <div class="col-sm-4">
-          <img src="https://jackaloupe.files.wordpress.com/2016/07/team-valor-cutout1.png" class='teamImage' ng-click="addPoint('red')"  alt="Red Team">
-          <p class='pointCount' id='redPts' ng-model='redPoints'>POINTS:</p>
+          <div class="col-sm-4">
+            <img src="https://jackaloupe.files.wordpress.com/2016/07/team-valor-cutout1.png" class='teamImage' ng-click="addPoint('red')"  alt="Red Team">
+            <p class='pointCount' id='redPts' ng-model='redPoints'> # </p>
+          </div>
+          <div class="col-sm-4"> 
+            <img src="https://jackaloupe.files.wordpress.com/2016/07/team-mystic-cutout1.png" class='teamImage' ng-click="addPoint('blue')" alt="Blue Team">
+            <p class='pointCount' id='bluePts' ng-model='bluePoints'> # </p>    
+          </div>
         </div>
-        <div class="col-sm-4"> 
-          <img src="https://jackaloupe.files.wordpress.com/2016/07/team-mystic-cutout1.png" class='teamImage' ng-click="addPoint('blue')" alt="Blue Team">
-          <p class='pointCount' id='bluePts' ng-model='bluePoints'>POINTS:</p>    
+         <div class="row">
+          <div class="col-sm-4">
+            <img src="https://jackaloupe.files.wordpress.com/2016/07/team-instinct-cutout.png" class='teamImage' ng-click="addPoint('yellow')" alt="Yellow Team">
+            <p class='pointCount' id='yellowPts' ng-model='yellowPoints'> # </p>   
+          </div>
+          <div class="col-sm-4">
+            <img src="https://jackaloupe.files.wordpress.com/2016/07/team-instinct-cutout.png" class='teamImage' ng-click="addPoint('green')" alt="Green Team">
+            <p class='pointCount' id='greenPts' ng-model='greenPoints'> # </p>   
+          </div>
         </div>
-        <div class="col-sm-4">
-          <img src="https://jackaloupe.files.wordpress.com/2016/07/team-instinct-cutout.png" class='teamImage' ng-click="addPoint('yellow')" alt="Yellow Team">
-          <p class='pointCount' id='yellowPts' ng-model='yellowPoints'>P<a ng-click="secretTunnels('yellow')" class='pointCount'>O</a>INTS:</p>   
-        </div>
-      </div>
     </div>
 
     
