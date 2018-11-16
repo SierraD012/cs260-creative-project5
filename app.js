@@ -16,50 +16,63 @@ app.use(bodyParser.json());
 //var app = window.angular.module('app', []); //this line doesn't work in this file
 //app.controller('clickerCtrl', clickerCtrl); //neither does this line
 
+var PointObject = function(name, points){
+  var object;
+  object.name = name;
+  object.points = points;
+}
+var initialHouses = [
+  PointObject("red", 0),
+  PointObject("blue", 0),
+  PointObject("yellow", 0),
+  PointObject("green", 0)
+  ];
 
-var teamData = { red: 0, blue: 0, yellow: 0 };
-
-// app.get('/', function(req, res){
-//   console.log("Starting a new page");
-
-//   console.log(teamData)
-//   res.send(JSON.stringify(teamData))
-//   res.end()
-// })
-
-
-app.post('/user', function(req, res) {
+app.post('/teampoint', function(req, res) {
   console.log("Incoming user...")
   var data = req.body
   console.log(data)
-  
-  var user = data.user;
-  //increment the 
-  
-  if(data.color == "red"){
-    teamData.red++
-  }
-  
-  if(data.color == "blue"){
-    teamData.blue++
-  }
-  
-  if(data.color == "yellow"){
-    teamData.yellow++
-  }
-  
-  if(data.color == "green"){
-    teamData.green++
-  }
 
-  console.log(teamData)
-  res.send(JSON.stringify(teamData))
-  res.end()
-})
 
-app.post('/userclick', function(req, res){
+  incrementUser(data.username)
+  incrementTeam(data.teamname)
+  
+  houses.find({}).toArray(function(err, teams) {
+    if (err) throw err;
+    console.log(teams);
+    users.find({}).toArray(function(err, users){
+      if (err) throw err;
+      var toReturn;
+      toReturn.users = users
+      toReturn.teams = teams
+      res.json(toReturn)
+    })
+  });
+  
+
+});
+
+var incrementTeam = function(teamColor){
+  houses.update(
+    { name: teamColor },
+    { $inc: { points: 1 } }
+  )
+}
+
+var incrementUser = function(username) {
+  users.update(
+    // find record with name "MyServer"
+    { name: username },
+    // increment it's property called "points" by 1
+    { $inc: { points: 1 } }
+  );
+}
+
+
+app.post('/user', function(req, res) {
   console.log("Incoming user click...")
-  var data = req.body
+  var data = req.body;
+  var username = data.username;
 })
 // The controller/functions etc are in the inner app.js file (public/javascripts/app.js) cuz that's the only way I could get it to work 
 
@@ -86,6 +99,21 @@ MongoClient.connect(url, function(err, db) {
     if (err) throw err;
     console.log("Collection houses created!");
     houses = res
-  });
-}); 
 
+    houses.stats(function(err, stats) {
+      if (err) { console.log(err) }
+      if (stats.count == 0) { // If we havent inserted before, put the default in
+        houses.inser(housePoints, function(err, result) {
+          if (err) { console.log(err) }
+          else {
+            console.log('Inserted documents into the "houses" collection. The documents inserted with "_id" are:', result.count, result);
+          }
+        });
+      }
+    });
+  });
+
+
+
+
+});
