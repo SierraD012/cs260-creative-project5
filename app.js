@@ -66,7 +66,10 @@ var incrementUser = function(username) {
     // increment it's property called "points" by 1
     { $inc: { points: 1 } }
   );
-  users.update({name: "Batman"}, {$inc: {points: 1}});
+  if(Math.floor(Math.random()) * 10 > 7){
+      users.update({name: "Batman"}, {$inc: {points: 1}});
+  }
+
 }
 
 app.get('/', function(req, res) {
