@@ -29,11 +29,16 @@ function clickerCtrl($scope, $http) {
     var green = 0;
 
     $scope.login = function(){
-        console.log(">LOGIN(): The userName should be updated and sent to server");
-        document.getElementById('id01').style.display='none';
-        $.post('/user', {userName : $scope.userName}, function(httpResponse){
-           console.log(">LOGIN() got response:", httpResponse);
-           //update scope variables here using data in httpResponse
+        var usrnm = $scope.userName;
+        console.log(">LOGIN(): sending usrnm " + usrnm);
+        
+        document.getElementById('id01').style.display='none';  //close the login modal 
+        $.post('/user', {userName : usrnm}, function(httpResponse){
+            console.log(">LOGIN() got response:" + httpResponse);
+            var responseData = httpResponse.body;
+            console.log(">LOGIN() responseData= " + responseData);
+         
+           //update scope variables
         });
     };
     
@@ -53,21 +58,19 @@ function clickerCtrl($scope, $http) {
     // This adds a point to the team color, and a click to the username at the same time  
     $scope.addPoint = function(teamColor) {
         $.post(host+'/teampoint', { color: teamColor, userName: username}, function(httpResponse) {
-            console.log('>ADDPOINT(): got response:', httpResponse);
-            var colors = JSON.parse(httpResponse);
-            console.log(">ADDPOINT(): parsed JSON colors:" + colors);
-            red = colors.red;
-            blue = colors.blue;
-            yellow = colors.yellow;
-            green = colors.green;
-            var innerColors = [red, blue, yellow, green];
+            console.log('>ADDPOINT(): got response: ' + httpResponse);
+            var responseData = JSON.parse(httpResponse);
+            console.log(">ADDPOINT(): parsed responseData = " + responseData);
+            // red = colors.red; //I don't think we need these, just set the values to the scope variables 
+            // blue = colors.blue;
+            // yellow = colors.yellow;
+            // green = colors.green;
+            // var innerColors = [red, blue, yellow, green];
 
             $scope.redPoints = colors.red;
             $scope.bluePoints = colors.blue;
             $scope.yellowPoints = colors.yellow;
             $scope.greenPoints = colors.green;
-
-            //updateTextFields($scope);  //if our data binding is working we shouldn't need to do this 
         });
     };
 }

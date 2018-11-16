@@ -1,16 +1,18 @@
-tosend:
+//Client sends this when Posting to server via addPoint()
 {
 teamname: value,
 username: value
+
 }
 
+//Client sends this when Posting to server via login()
 {
-username: value
+    username: value
 }
 
-
-to receive: 
+//Client receives this after each Post, for both addPoint() and login()
 {
 users: [{name: value, points: value}],
 teams: [{name: value, points: value}]
+
 }
