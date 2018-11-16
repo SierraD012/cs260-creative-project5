@@ -26,32 +26,32 @@ function clickerCtrl($scope, $http) {
         document.getElementById('id01').style.display='none';  //close the login modal 
         
         $.post(host+'/user', {username : usrnm}, function(httpResponse){
-            console.log(">LOGIN() got response:");
+           // console.log(">LOGIN() got response:");
             console.dir(httpResponse);
             
            //update scope variables using stuff in responseData
            $scope.parseResponse(httpResponse);
+           $scope.updateData();
            $scope.updateFields();
         }, "JSON");
     };
     
-//      //Gets a list of all users+clicks from the server DB - maybe put this on a timer later
-//     $scope.updateUserList = function() {
-//           console.log(">UPDATEUL() called");
-//           return $http.get('/comments').success(function(data){
-//             console.log(">UPDATEUL(): Updated successfully");
-//             angular.copy(data, $scope.comments);  //this copies the stuff coming back from the REST call into the scope comments array
-//           }).fail(function(err){
-//               console.log(">UPDATEUL(): Err during http Get:" + err);
-//           });
-//     };
-//   // $scope.updateUserList(); //call it first thing so it updates
-    
+     //Gets a list of all users+clicks from the server DB - maybe put this on a timer later
+    $scope.updateData = function() {
+          console.log(">UPDATEDATA() called");
+          return $http.get(host+'/', function(httpResponse){
+            //console.log(">UPDATEDATA() got response:");
+            console.dir(httpResponse);
+              
+            $scope.parseResponse(httpResponse);
+            $scope.updateFields();
+          });
+    };
     
     // This adds a point to the team color, and a click to the username at the same time  
     $scope.addPoint = function(teamColor) {
         $.post(host+'/teampoint', { teamname: teamColor, username: $scope.userName}, function(httpResponse) {
-            console.log('>ADDPOINT(): got response: ' + httpResponse);
+            //console.log('>ADDPOINT(): got response: ' + httpResponse);
             
             $scope.parseResponse(httpResponse);
             $scope.updateFields();
@@ -95,9 +95,7 @@ function clickerCtrl($scope, $http) {
         }
         
         angular.copy(usersArr, $scope.allUsers);  //this copies the stuff coming back from the server into the scope allUsers array
-        console.log('>PR(): allUsers now = ');
-        console.dir($scope.allUsers);
-        
+
         console.log('>PARSERESPONSE(): done');
     };
     
