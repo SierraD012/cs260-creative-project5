@@ -56,3 +56,27 @@ app.listen(4200, function() {
 // The controller/functions etc are in the inner app.js file (public/javascripts/app.js) cuz that's the only way I could get it to work 
 
 module.exports = app;
+
+
+
+//  -------------------------   MONGO CODE    -------------------------------
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://localhost:27017/mydb";
+var users;
+var houses;
+
+
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("main-game");
+  dbo.createCollection("users", function(err, res) {
+    if (err) throw err;
+    console.log("Collection users created!");
+    users = res
+  });
+  dbo.createCollection("houses", function(err, res) {
+    if (err) throw err;
+    console.log("Collection houses created!");
+    houses = res
+  });
+}); 
