@@ -17,9 +17,10 @@ app.use(bodyParser.json());
 //app.controller('clickerCtrl', clickerCtrl); //neither does this line
 
 var PointObject = function(name, points) {
-  var object;
-  object.name = name;
-  object.points = points;
+  return {
+    name: name,
+    points: points
+  }
 }
 var initialHouses = [
   PointObject("red", 0),
@@ -106,15 +107,22 @@ MongoClient.connect(url, function(err, db) {
     houses = res
 
     houses.stats(function(err, stats) {
+      console.log("getting stats")
       if (err) { console.log(err) }
       if (stats.count == 0) { // If we havent inserted before, put the default in
-        houses.inser(housePoints, function(err, result) {
+      console.log("Initializing collection houses")
+      console.log(initialHouses)
+        houses.insertMany(initialHouses, function(err, result) {
+          console.log("Attempting to initialize db")
           if (err) { console.log(err) }
           else {
             console.log('Inserted documents into the "houses" collection. The documents inserted with "_id" are:', result.count, result);
           }
         });
+      } else{
+        
       }
+      
     });
   });
 
