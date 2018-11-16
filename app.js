@@ -28,7 +28,7 @@ var initialHouses = [
   PointObject("green", 0)
   ];
 
-app.post('/user', function(req, res) {
+app.post('/teampoint', function(req, res) {
   console.log("Incoming user...")
   var data = req.body
   console.log(data)
@@ -69,7 +69,7 @@ var incrementUser = function(username) {
 }
 
 
-app.post('/userclick', function(req, res) {
+app.post('/user', function(req, res) {
   console.log("Incoming user click...")
   var data = req.body;
   var username = data.username;
