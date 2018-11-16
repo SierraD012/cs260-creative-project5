@@ -49,10 +49,6 @@ app.post('/updateTeamData', function(req, res) {
   res.send(JSON.stringify(teamData))
   res.end()
 })
-
-app.listen(4200, function() {
-  console.log("Server listening on port 4200")
-})
 // The controller/functions etc are in the inner app.js file (public/javascripts/app.js) cuz that's the only way I could get it to work 
 
 module.exports = app;
@@ -80,3 +76,4 @@ MongoClient.connect(url, function(err, db) {
     houses = res
   });
 }); 
+
