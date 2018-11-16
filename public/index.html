@@ -33,7 +33,7 @@
           <h5 class="w3-bar-item leaderBoardHeader">LEADERBOARD</h5>
           <hr>
             <ol id="leaderboardList">
-              <li ng-repeat='user in allUsers'>{{user.name}} : {{user.clicks}}</li>
+              <li ng-repeat='user in allUsers | orderBy:"clicks"'>{{user.name}}: {{user.clicks}} clicks </li>
             </ol>
       </div>
     

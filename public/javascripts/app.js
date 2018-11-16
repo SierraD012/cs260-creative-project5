@@ -5,15 +5,15 @@ var app = window.angular.module('clickerApp', []);
 app.controller('clickerCtrl', clickerCtrl);
 app.directive('battle', battleDirective);
 
-//Note that Team Colors have POINTS, Users have CLICKS
 function clickerCtrl($scope, $http) {
     document.getElementById('id01').style.display='block';
     //console.log(">NG:CLICKERCTRL called");
     
+    //Initialize scope data
     $scope.allUsers = [
-        {name:"Me", clicks: 300},
-        {name:"That Guy", clicks: 42},
-        {name:"Joe", clicks: 157}
+        {name:"Me", points: 300},
+        {name:"That Guy", points: 42},
+        {name:"Joe", points: 157}
         ];
     $scope.userName = "";
     $scope.redPoints = 0;
@@ -23,7 +23,7 @@ function clickerCtrl($scope, $http) {
     $scope.username = '';
     
     var host = "";  //change this to the ip/port of whoever is hosting the server
-    var red = 0;
+    var red = 0; // we probably don't need these 
     var blue = 0;
     var yellow = 0;
     var green = 0;
@@ -31,14 +31,14 @@ function clickerCtrl($scope, $http) {
     $scope.login = function(){
         var usrnm = $scope.userName;
         console.log(">LOGIN(): sending usrnm " + usrnm);
-        
         document.getElementById('id01').style.display='none';  //close the login modal 
+        
         $.post('/user', {userName : usrnm}, function(httpResponse){
             console.log(">LOGIN() got response:" + httpResponse);
             var responseData = httpResponse.body;
             console.log(">LOGIN() responseData= " + responseData);
          
-           //update scope variables
+           //update scope variables using stuff in responseData
         });
     };
     
@@ -57,7 +57,7 @@ function clickerCtrl($scope, $http) {
     
     // This adds a point to the team color, and a click to the username at the same time  
     $scope.addPoint = function(teamColor) {
-        $.post(host+'/teampoint', { color: teamColor, userName: username}, function(httpResponse) {
+        $.post(host+'/teampoint', { teamname: teamColor, username: $scope.userName}, function(httpResponse) {
             console.log('>ADDPOINT(): got response: ' + httpResponse);
             var responseData = JSON.parse(httpResponse);
             console.log(">ADDPOINT(): parsed responseData = " + responseData);
@@ -66,11 +66,31 @@ function clickerCtrl($scope, $http) {
             // yellow = colors.yellow;
             // green = colors.green;
             // var innerColors = [red, blue, yellow, green];
+            var usersArr = responseData.users;
+            var teamsArr = responseData.teams;
 
-            $scope.redPoints = colors.red;
-            $scope.bluePoints = colors.blue;
-            $scope.yellowPoints = colors.yellow;
-            $scope.greenPoints = colors.green;
+            //Since the teamPoints aren't guaranteed to come back in order, check each one 
+            for (var t = 0; t < teamsArr.length; t++) {
+                var item = teamsArr[t];
+                
+                switch(item.name){
+                    case "red":
+                        $scope.redPoints = item.points;
+                        break;
+                    case "blue":
+                        $scope.bluePoints = item.points;
+                        break;
+                    case "yellow":
+                        $scope.yellowPoints = item.points;
+                        break;
+                    case "green":
+                        $scope.greenPoints = item.points;
+                        break;
+                }
+            }
+            
+            //TEST - see what responseData actually has 
+            angular.copy(responseData.users, $scope.allUsers);  //this copies the stuff coming back from the server into the scope allUsers array
         });
     };
 }

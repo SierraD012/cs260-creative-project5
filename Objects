@@ -1,10 +1,7 @@
 //Client sends this when Posting to server via addPoint()
 {
-    red: value,
-    green: value,
-    blue: value,
-    yellow: value,
-    username: value,
+    teamname: value,
+    username: value
 }
 
 //Client sends this when Posting to server via login()
@@ -15,13 +12,8 @@
 
 
 
-
-
 //Client receives this after each Post, for both addPoint() and login()
 {
-    users: [{username: value, clicks: value}],
-    red: value,
-    green: value,
-    blue: value,
-    yellow: value
+    users: [{name: value, points: value}],
+    teams: [{name: value, points: value}]
 }
