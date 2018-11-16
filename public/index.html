@@ -34,9 +34,6 @@
 
 <!-- The Modal -->
 <div id="id01" class="modal">
-  <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">
-    &times;
-    </span>
 
   <!-- Modal Content -->
   <div class="modal-content animate">
@@ -44,7 +41,7 @@
     <div class="container">
       <label for="uname"><b>Username</b></label>
       <input type="text" placeholder="Enter Username" name="uname" required>
-      <button type="submit">Login</button>
+      <button type="submit" onclick="document.getElementById('id01').style.display='none'" >Login</button>
     </div>
   </div>
 </div>
