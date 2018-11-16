@@ -19,19 +19,22 @@ app.use(bodyParser.json());
 
 var teamData = { red: 0, blue: 0, yellow: 0 };
 
-app.get('/', function(req, res){
-  console.log("Starting a new page");
+// app.get('/', function(req, res){
+//   console.log("Starting a new page");
 
-  console.log(teamData)
-  res.send(JSON.stringify(teamData))
-  res.end()
-})
+//   console.log(teamData)
+//   res.send(JSON.stringify(teamData))
+//   res.end()
+// })
 
 
-app.post('/updateTeamData', function(req, res) {
-  console.log("Incoming post for update team data...")
+app.post('/user', function(req, res) {
+  console.log("Incoming user...")
   var data = req.body
   console.log(data)
+  
+  var user = data.user;
+  //increment the 
   
   if(data.color == "red"){
     teamData.red++
@@ -44,15 +47,45 @@ app.post('/updateTeamData', function(req, res) {
   if(data.color == "yellow"){
     teamData.yellow++
   }
+  
+  if(data.color == "green"){
+    teamData.green++
+  }
 
   console.log(teamData)
   res.send(JSON.stringify(teamData))
   res.end()
 })
 
-app.listen(4200, function() {
-  console.log("Server listening on port 4200")
+app.post('/userclick', function(req, res){
+  console.log("Incoming user click...")
+  var data = req.body
 })
 // The controller/functions etc are in the inner app.js file (public/javascripts/app.js) cuz that's the only way I could get it to work 
 
 module.exports = app;
+
+
+
+//  -------------------------   MONGO CODE    -------------------------------
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://localhost:27017/mydb";
+var users;
+var houses;
+
+
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("main-game");
+  dbo.createCollection("users", function(err, res) {
+    if (err) throw err;
+    console.log("Collection users created!");
+    users = res
+  });
+  dbo.createCollection("houses", function(err, res) {
+    if (err) throw err;
+    console.log("Collection houses created!");
+    houses = res
+  });
+}); 
+
