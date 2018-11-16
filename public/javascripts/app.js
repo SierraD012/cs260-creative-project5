@@ -6,19 +6,16 @@ app.controller('clickerCtrl', clickerCtrl);
 
 function clickerCtrl($scope, $http) {
     document.getElementById('id01').style.display='block';
-    //console.log(">NG:CLICKERCTRL called");
-    
     //Initialize scope data
     $scope.allUsers = [];
-
     $scope.userName = "";
     $scope.redPoints = 0;
     $scope.bluePoints = 0;
     $scope.yellowPoints = 0;
     $scope.greenPoints = 0;
     $scope.username = '';
-    
     var host = "http://18.215.14.200:4202";  //change this to the ip/port of whoever is hosting the server - this is Mitch's
+    
 
     $scope.login = function(){
         var usrnm = $scope.userName;
@@ -31,16 +28,23 @@ function clickerCtrl($scope, $http) {
             
            //update scope variables using stuff in responseData
            $scope.parseResponse(httpResponse);
-           $scope.updateData();
            $scope.updateFields();
+           
         }, "JSON");
+        
+        
+        //this updates the scope data every few seconds
+        setInterval(function(){
+            $scope.updateData();
+        }, 3000);  //If our server is being laggy then make this a longer time interval
     };
     
      //Gets a list of all users+clicks from the server DB - maybe put this on a timer later
     $scope.updateData = function() {
           console.log(">UPDATEDATA() called");
+          
           return $http.get(host+'/', function(httpResponse){
-            //console.log(">UPDATEDATA() got response:");
+            console.log(">UPDATEDATA() got response:");
             console.dir(httpResponse);
               
             $scope.parseResponse(httpResponse);
@@ -95,8 +99,8 @@ function clickerCtrl($scope, $http) {
         }
         
         angular.copy(usersArr, $scope.allUsers);  //this copies the stuff coming back from the server into the scope allUsers array
-
-        console.log('>PARSERESPONSE(): done');
+        
+        console.log('>PARSERESPONSE(): done, allUsers now= ' + $scope.allUsers);
     };
     
     //Using JQuery to update frontend because we're not using ng-repeat
@@ -106,7 +110,5 @@ function clickerCtrl($scope, $http) {
         $("#bluePts").text($scope.bluePoints);
         $("#yellowPts").text($scope.yellowPoints);
         $("#greenPts").text($scope.greenPoints);
-        
-        
     };
 }
