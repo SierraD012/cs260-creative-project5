@@ -30,7 +30,7 @@
     
       <!-- Leaderboard -->
       <div class="w3-sidebar w3-bar-block" style="width:25%;right:0;background-color:#e0d4a1">
-          <h5 class="w3-bar-item leaderBoardHeader">LEADERBOARD</h5>
+          <h5 class="w3-bar-item leaderBoardHeader" style="text-align:center">CLICK LEADERBOARD</h5>
           <hr>
             <ol id="leaderboardList">
               <li ng-repeat='user in allUsers | orderBy:"clicks"'>{{user.name}}: {{user.clicks}} clicks </li>
@@ -43,7 +43,7 @@
     
      <div style="margin-right:25%"> <!-- scoots the main body over a bit to make room for leaderboard-->
   
-        <battle></battle>
+        <battle></battle> <!-- This fills in the whole battle screen area with the 4 house pictures --> 
     
         <!-- Login Modal -->
         <div id="id01" class="modal">

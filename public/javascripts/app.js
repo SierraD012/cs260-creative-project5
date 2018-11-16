@@ -30,7 +30,7 @@ function clickerCtrl($scope, $http) {
 
     $scope.login = function(){
         var usrnm = $scope.userName;
-        console.log(">LOGIN(): sending usrnm " + usrnm);
+        console.log(">LOGIN(): sending usrnm: " + usrnm);
         document.getElementById('id01').style.display='none';  //close the login modal 
         
         $.post('/user', {userName : usrnm}, function(httpResponse){
@@ -90,7 +90,7 @@ function clickerCtrl($scope, $http) {
             }
             
             //TEST - see what responseData actually has 
-            angular.copy(responseData.users, $scope.allUsers);  //this copies the stuff coming back from the server into the scope allUsers array
+            angular.copy(usersArr, $scope.allUsers);  //this copies the stuff coming back from the server into the scope allUsers array
         });
     };
 }
@@ -107,21 +107,21 @@ function battleDirective() {
                 '<div class="row">' +
                     '<div class="col-sm-4">' +
                         '<img src="images/gryffindor.png" class="teamImage" ng-click="addPoint(\'red\')"  alt="Red Team">' +
-                        '<p class="pointCount" id="redPts" ng-model="redPoints">#</p>' +
+                        '<p class="pointCount" id="redPts" ng-model="redPoints"> {{redPoints}} </p>' +
                     '</div>' +
                     '<div class="col-sm-4">'  +
                         '<img src="images/ravenclaw.png" class="teamImage" ng-click="addPoint(\'blue\')" alt="Blue Team">' +
-                        '<p class="pointCount" id="bluePts" ng-model="bluePoints">#</p>' +    
+                        '<p class="pointCount" id="bluePts" ng-model="bluePoints {{bluePoints}} p>' +    
                     '</div>' +
                 '</div>' +
                 '<div class="row">' +
                     '<div class="col-sm-4">' +
                         '<img src="images/hufflepuff.png" class="teamImage" ng-click="addPoint(\'yellow\')" alt="Yellow Team">' +
-                        '<p class="pointCount" id="yellowPts" ng-model="yellowPoints">#</p>' +   
+                        '<p class="pointCount" id="yellowPts" ng-model="yellowPoints"> {{yellowPoints}} </p>' +   
                     '</div>' +
                     '<div class="col-sm-4">' + 
                         '<img src="images/slytherin.png" class="teamImage" ng-click="addPoint(\'green\')" alt="Green Team">' +
-                        '<p class="pointCount" id="greenPts" ng-model="greenPoints">#</p>' +   
+                        '<p class="pointCount" id="greenPts" ng-model="greenPoints"> {{greenPoints}} </p>' +   
                     '</div>' +
                 '</div>' +
             '</div>'
@@ -131,5 +131,6 @@ function battleDirective() {
 
     function link(scope) {
         //code this later
+        //hey james why did we have this again -sierra
     }
 }
