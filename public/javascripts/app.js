@@ -25,7 +25,7 @@ function clickerCtrl($scope, $http) {
         console.log(">LOGIN(): sending usrnm: " + usrnm);
         document.getElementById('id01').style.display='none';  //close the login modal 
         
-        $.post(host+'/user', {userName : usrnm}, function(httpResponse){
+        $.post(host+'/user', {username : usrnm}, function(httpResponse){
             console.log(">LOGIN() got response:");
             console.dir(httpResponse);
             
