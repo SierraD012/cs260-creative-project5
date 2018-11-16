@@ -1,0 +1,22 @@
+tosend:
+{
+red: value,
+green: value,
+blue: value,
+yellow: value,
+username: value,
+}
+
+{
+username: value
+}
+
+
+to receive: 
+{
+users: [{username: value, clicks: value}],
+red: value,
+green: value,
+blue: value,
+yellow: value
+}
