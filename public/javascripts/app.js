@@ -3,7 +3,6 @@
 var app = window.angular.module('clickerApp', []);
 
 app.controller('clickerCtrl', clickerCtrl);
-app.directive('battle', battleDirective);
 
 function clickerCtrl($scope, $http) {
     document.getElementById('id01').style.display='block';
@@ -39,6 +38,7 @@ function clickerCtrl($scope, $http) {
             
            //update scope variables using stuff in responseData
            $scope.parseResponse(httpResponse);
+           $scope.updateFields();
         });
     };
     
@@ -61,6 +61,7 @@ function clickerCtrl($scope, $http) {
             console.log('>ADDPOINT(): got response: ' + httpResponse);
             
             $scope.parseResponse(httpResponse);
+            $scope.updateFields();
         });
     };
     
@@ -83,19 +84,19 @@ function clickerCtrl($scope, $http) {
             switch(item.name){
                 case "red":
                     $scope.redPoints = item.points;
-                    console.log('>PR(): redPts now = ' + $scope.redPoints);
+                    //console.log('>PR(): redPts now = ' + $scope.redPoints);
                     break;
                 case "blue":
                     $scope.bluePoints = item.points;
-                    console.log('>PR(): bluePts now = ' + $scope.bluePoints);
+                    //console.log('>PR(): bluePts now = ' + $scope.bluePoints);
                     break;
                 case "yellow":
                     $scope.yellowPoints = item.points;
-                    console.log('>PR(): yellowPts now = ' + $scope.yellowPoints);
+                    //console.log('>PR(): yellowPts now = ' + $scope.yellowPoints);
                     break;
                 case "green":
                     $scope.greenPoints = item.points;
-                    console.log('>PR(): greenPts now = ' + $scope.greenPoints);
+                    //console.log('>PR(): greenPts now = ' + $scope.greenPoints);
                     break;
             }
         }
@@ -103,40 +104,52 @@ function clickerCtrl($scope, $http) {
         angular.copy(usersArr, $scope.allUsers);  //this copies the stuff coming back from the server into the scope allUsers array
         console.log('>PR(): allUsers now = ');
         console.dir($scope.allUsers);
+        
+        console.log('>PARSERESPONSE(): done');
+    };
+    
+    //Using JQuery to update frontend because we're not using ng-repeat
+    $scope.updateFields = function(){
+        console.log('>UpdateFields() called');
+        $("#redPts").text($scope.redPoints);
+        $("#bluePts").text($scope.bluePoints);
+        $("#yellowPts").text($scope.yellowPoints);
+        $("#greenPts").text($scope.greenPoints);
+        
+        
     };
 }
 
-//This replaces the <battle> tag on the homepage
-function battleDirective() {
-    return {
-        scope: {
-            directive: '='
-        },
-        restrict: 'E',
-        replace: 'true',
-        template: (
-            '<div class="container text-center">' +
-                '<div class="row">' +
-                    '<div class="col-sm-4">' +
-                        '<img src="images/gryffindor.png" class="teamImage" ng-click="addPoint(\'red\')"  alt="Red Team">' +
-                        '<p class="pointCount" id="redPts" ng-model="redPoints"> {{redPoints}} </p>' +
-                    '</div>' +
-                    '<div class="col-sm-4">'  +
-                        '<img src="images/ravenclaw.png" class="teamImage" ng-click="addPoint(\'blue\')" alt="Blue Team">' +
-                        '<p class="pointCount" id="bluePts" ng-model="bluePoints"> {{bluePoints}} <p>' +    
-                    '</div>' +
-                '</div>' +
-                '<div class="row">' +
-                    '<div class="col-sm-4">' +
-                        '<img src="images/hufflepuff.png" class="teamImage" ng-click="addPoint(\'yellow\')" alt="Yellow Team">' +
-                        '<p class="pointCount" id="yellowPts" ng-model="yellowPoints"> {{yellowPoints}} </p>' +   
-                    '</div>' +
-                    '<div class="col-sm-4">' + 
-                        '<img src="images/slytherin.png" class="teamImage" ng-click="addPoint(\'green\')" alt="Green Team">' +
-                        '<p class="pointCount" id="greenPts" ng-model="greenPoints"> {{greenPoints}} </p>' +   
-                    '</div>' +
-                '</div>' +
-            '</div>'
-        ),
-    };
-}
+// function battleDirective() {
+//     return {
+//         scope: {
+//             directive: '='
+//         },
+//         restrict: 'E',
+//         replace: 'true',
+//         template: (
+//             '<div class="container text-center">' +
+//                 '<div class="row">' +
+//                     '<div class="col-sm-4">' +
+//                         '<img src="images/gryffindor.png" class="teamImage" ng-click="addPoint(\'red\')"  alt="Red Team">' +
+//                         '<p class="pointCount" id="redPts" ng-model="redPoints"> {{redPoints}} </p>' +
+//                     '</div>' +
+//                     '<div class="col-sm-4">'  +
+//                         '<img src="images/ravenclaw.png" class="teamImage" ng-click="addPoint(\'blue\')" alt="Blue Team">' +
+//                         '<p class="pointCount" id="bluePts" ng-model="bluePoints"> {{bluePoints}} <p>' +    
+//                     '</div>' +
+//                 '</div>' +
+//                 '<div class="row">' +
+//                     '<div class="col-sm-4">' +
+//                         '<img src="images/hufflepuff.png" class="teamImage" ng-click="addPoint(\'yellow\')" alt="Yellow Team">' +
+//                         '<p class="pointCount" id="yellowPts" ng-model="yellowPoints"> {{yellowPoints}} </p>' +   
+//                     '</div>' +
+//                     '<div class="col-sm-4">' + 
+//                         '<img src="images/slytherin.png" class="teamImage" ng-click="addPoint(\'green\')" alt="Green Team">' +
+//                         '<p class="pointCount" id="greenPts" ng-model="greenPoints"> {{greenPoints}} </p>' +   
+//                     '</div>' +
+//                 '</div>' +
+//             '</div>'
+//         ),
+//     };
+// }
