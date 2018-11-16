@@ -68,6 +68,9 @@ var incrementUser = function(username) {
   );
 }
 
+app.get('/', function(req, res) {
+  sendResponse(res);
+})
 
 app.post('/user', function(req, res) {
   console.log("Incoming user ...")
