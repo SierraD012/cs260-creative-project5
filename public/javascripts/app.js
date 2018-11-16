@@ -32,7 +32,7 @@ function clickerCtrl($scope, $http) {
            //update scope variables using stuff in responseData
            $scope.parseResponse(httpResponse);
            $scope.updateFields();
-        });
+        }, "JSON");
     };
     
 //      //Gets a list of all users+clicks from the server DB - maybe put this on a timer later
@@ -55,7 +55,7 @@ function clickerCtrl($scope, $http) {
             
             $scope.parseResponse(httpResponse);
             $scope.updateFields();
-        });
+        }, "JSON");
     };
     
     // This pulls the usersArray and teamsArray out of the httpResponse JSON and uses it to update the scope variables 
