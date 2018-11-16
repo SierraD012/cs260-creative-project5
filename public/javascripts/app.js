@@ -14,12 +14,27 @@ function clickerCtrl($scope, $http) {
     $scope.bluePoints = 0;
     $scope.yellowPoints = 0;
     $scope.greenPoints = 0;
-
+    $scope.username = '';
+    
     var red = 0;
     var blue = 0;
     var yellow = 0;
     var green = 0;
 
+    $scope.userName = function(userName){
+        console.log("The userName should be updated and sent to server");
+        
+        
+        $scope.userName = userName;
+        $.get('http://54.236.42.112:4200/', {user : userName}, function(httpResponse){
+           console.log("Initialising the data", httpResponse);
+           
+           
+            updateTextFields($scope);           
+        });
+        
+    }
+    
     $scope.addPoint = function(teamColor) {
 
         $.post('http://54.236.42.112:4200/updateTeamData', { color: teamColor }, function(httpResponse) {
@@ -45,16 +60,11 @@ function clickerCtrl($scope, $http) {
     };
 }
 
-function myFunc() {
-    var toSend;
-    toSend.color
-}
-
 function updateTextFields($scope) {
-    //update text fields
     $("#redPts").text("POINTS: " + $scope.redPoints);
     $("#bluePts").text("POINTS: " + $scope.bluePoints);
     $("#yellowPts").text("POINTS: " + $scope.yellowPoints);
+    $("#greenPts").text("POINTS: " + $scope.greenProints);
 }
 
 function updateBackground($scope) {
@@ -71,24 +81,6 @@ function updateBackground($scope) {
     else {
         //change bg to yellow
         $("#mainBody").css("background-color", "#917d00");
-    }
-}
-
-function loginDirective() {
-    return{
-        scope: {
-            directive: '='
-        },
-        resrict: 'E',
-        replace: 'true',
-        template: (
-            '<p>Hello Fair Citizens</p>'
-        ),
-        link: link
-    };
-    
-    function link(scope){
-        //code later
     }
 }
 
