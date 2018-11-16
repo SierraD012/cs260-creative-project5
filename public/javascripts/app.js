@@ -22,7 +22,7 @@ function clickerCtrl($scope, $http) {
     $scope.greenPoints = 0;
     $scope.username = '';
     
-    var host = "";  //change this to the ip/port of whoever is hosting the server
+    var host = "http://18.215.14.200:4202";  //change this to the ip/port of whoever is hosting the server - this is Mitch's
     var red = 0; // we probably don't need these 
     var blue = 0;
     var yellow = 0;
@@ -33,7 +33,7 @@ function clickerCtrl($scope, $http) {
         console.log(">LOGIN(): sending usrnm: " + usrnm);
         document.getElementById('id01').style.display='none';  //close the login modal 
         
-        $.post('/user', {userName : usrnm}, function(httpResponse){
+        $.post(host+'/user', {userName : usrnm}, function(httpResponse){
             console.log(">LOGIN() got response:" + httpResponse);
             var responseData = httpResponse.body;
             console.log(">LOGIN() responseData= " + responseData);
@@ -111,7 +111,7 @@ function battleDirective() {
                     '</div>' +
                     '<div class="col-sm-4">'  +
                         '<img src="images/ravenclaw.png" class="teamImage" ng-click="addPoint(\'blue\')" alt="Blue Team">' +
-                        '<p class="pointCount" id="bluePts" ng-model="bluePoints {{bluePoints}} p>' +    
+                        '<p class="pointCount" id="bluePts" ng-model="bluePoints"> {{bluePoints}} <p>' +    
                     '</div>' +
                 '</div>' +
                 '<div class="row">' +
