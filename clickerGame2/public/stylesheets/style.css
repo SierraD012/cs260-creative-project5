@@ -1,6 +1,6 @@
 
 body {
-  background-color: #313338;
+  background-color: #1e2026;
 }
 
 a {
@@ -11,16 +11,16 @@ a {
 hr {
     border: none;
     height: 5px;
-    color: #efa237; /* old IE */
-    background-color: #efa237; /* Modern Browsers */
+    color: #840032; /* old IE */
+    background-color: #840032; /* Modern Browsers */
 }
 
 .mainHeader {
-  font-family: 'Russo One', sans-serif;
+  font-family: 'Cinzel Decorative', cursive;
   font-size: 80px;
   text-align: left;
   padding-left: 25px;
-  color: #c0c1c4;
+  color: #d8b82b;
 }
 
 .subHeader {
@@ -28,29 +28,30 @@ hr {
   font-size: 25px;
   text-align: left;
   padding-left: 25px;
-  color: #81858e;
+  color: #d8b82b;
+  opacity: 0.6;
 }
 
 .pointCount {
   font-family: 'Passion One', sans-serif;
-  font-size: 40px;
-  color: #ffffff;
+  font-size: 30px;
+  color: #d8b82b;
 }
 
 .teamImage {
-  width: 150px;
-  height: 150px;
+  width: 160px;
+  height: 160px;
   background-color: white;
   border: 5px solid #ffffff;  
   /*float: left;*/
-  margin: 20px;
+  margin: 5px;
   overflow: hidden;
   
-  -webkit-box-shadow: 5px 5px 10px #111;
-          box-shadow: 5px 5px 10px #111;  
+  -webkit-box-shadow: 5px 5px 10px #840032;
+          box-shadow: 5px 5px 10px #840032;  
 }
 .teamImage:hover {
-   border: 5px solid #7ad0ff;
+   border: 5px solid #d8b82b;
 }
 /*.teamImage:click {*/
 /*   border: 6px solid #ffffff;*/
