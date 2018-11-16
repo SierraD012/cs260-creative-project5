@@ -34,67 +34,79 @@ function clickerCtrl($scope, $http) {
         document.getElementById('id01').style.display='none';  //close the login modal 
         
         $.post(host+'/user', {userName : usrnm}, function(httpResponse){
-            console.log(">LOGIN() got response:" + httpResponse);
-            var responseData = httpResponse.body;
-            console.log(">LOGIN() responseData= " + responseData);
-         
+            console.log(">LOGIN() got response:");
+            console.dir(httpResponse);
+            
            //update scope variables using stuff in responseData
+           $scope.parseResponse(httpResponse);
         });
     };
     
-     //Gets a list of all users+clicks from the server DB - maybe put this on a timer later
-    $scope.updateUserList = function() {
-          console.log(">UPDATEUL() called");
-          return $http.get('/comments').success(function(data){
-            console.log(">UPDATEUL(): Updated successfully");
-            angular.copy(data, $scope.comments);  //this copies the stuff coming back from the REST call into the scope comments array
-          }).fail(function(err){
-              console.log(">UPDATEUL(): Err during http Get:" + err);
-          });
-    };
-   // $scope.updateUserList(); //call it first thing so it updates
+//      //Gets a list of all users+clicks from the server DB - maybe put this on a timer later
+//     $scope.updateUserList = function() {
+//           console.log(">UPDATEUL() called");
+//           return $http.get('/comments').success(function(data){
+//             console.log(">UPDATEUL(): Updated successfully");
+//             angular.copy(data, $scope.comments);  //this copies the stuff coming back from the REST call into the scope comments array
+//           }).fail(function(err){
+//               console.log(">UPDATEUL(): Err during http Get:" + err);
+//           });
+//     };
+//   // $scope.updateUserList(); //call it first thing so it updates
     
     
     // This adds a point to the team color, and a click to the username at the same time  
     $scope.addPoint = function(teamColor) {
         $.post(host+'/teampoint', { teamname: teamColor, username: $scope.userName}, function(httpResponse) {
             console.log('>ADDPOINT(): got response: ' + httpResponse);
-            var responseData = JSON.parse(httpResponse);
-            console.log(">ADDPOINT(): parsed responseData = " + responseData);
-            // red = colors.red; //I don't think we need these, just set the values to the scope variables 
-            // blue = colors.blue;
-            // yellow = colors.yellow;
-            // green = colors.green;
-            // var innerColors = [red, blue, yellow, green];
-            var usersArr = responseData.users;
-            var teamsArr = responseData.teams;
-
-            //Since the teamPoints aren't guaranteed to come back in order, check each one 
-            for (var t = 0; t < teamsArr.length; t++) {
-                var item = teamsArr[t];
-                
-                switch(item.name){
-                    case "red":
-                        $scope.redPoints = item.points;
-                        break;
-                    case "blue":
-                        $scope.bluePoints = item.points;
-                        break;
-                    case "yellow":
-                        $scope.yellowPoints = item.points;
-                        break;
-                    case "green":
-                        $scope.greenPoints = item.points;
-                        break;
-                }
-            }
             
-            //TEST - see what responseData actually has 
-            angular.copy(usersArr, $scope.allUsers);  //this copies the stuff coming back from the server into the scope allUsers array
+            $scope.parseResponse(httpResponse);
         });
+    };
+    
+    // This pulls the usersArray and teamsArray out of the httpResponse JSON and uses it to update the scope variables 
+    $scope.parseResponse = function(httpResp) {
+        console.log('>PARSERESPONSE(): starting');
+        
+        var usersArr = httpResp.users;
+        var teamsArr = httpResp.teams;
+        
+        console.log('>PARSERESPONSE() got usersArr= ');
+        console.dir(usersArr);
+        console.log('>PARSERESPONSE() got teamsArr= ');
+        console.dir(teamsArr);
+        
+        //Since the teamPoints aren't guaranteed to come back in order, check each one individually 
+        for (var t = 0; t < teamsArr.length; t++) {
+            var item = teamsArr[t];
+            
+            switch(item.name){
+                case "red":
+                    $scope.redPoints = item.points;
+                    console.log('>PR(): redPts now = ' + $scope.redPoints);
+                    break;
+                case "blue":
+                    $scope.bluePoints = item.points;
+                    console.log('>PR(): bluePts now = ' + $scope.bluePoints);
+                    break;
+                case "yellow":
+                    $scope.yellowPoints = item.points;
+                    console.log('>PR(): yellowPts now = ' + $scope.yellowPoints);
+                    break;
+                case "green":
+                    $scope.greenPoints = item.points;
+                    console.log('>PR(): greenPts now = ' + $scope.greenPoints);
+                    break;
+            }
+        }
+        
+        angular.copy(usersArr, $scope.allUsers);  //this copies the stuff coming back from the server into the scope allUsers array
+        console.log('>PR(): allUsers now = ');
+        console.dir($scope.allUsers);
     };
 }
 
+//This replaces the <battle> tag on the homepage
 function battleDirective() {
     return {
         scope: {
