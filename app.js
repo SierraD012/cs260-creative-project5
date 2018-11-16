@@ -19,19 +19,22 @@ app.use(bodyParser.json());
 
 var teamData = { red: 0, blue: 0, yellow: 0 };
 
-app.get('/', function(req, res){
-  console.log("Starting a new page");
+// app.get('/', function(req, res){
+//   console.log("Starting a new page");
 
-  console.log(teamData)
-  res.send(JSON.stringify(teamData))
-  res.end()
-})
+//   console.log(teamData)
+//   res.send(JSON.stringify(teamData))
+//   res.end()
+// })
 
 
-app.post('/updateTeamData', function(req, res) {
-  console.log("Incoming post for update team data...")
+app.post('/user', function(req, res) {
+  console.log("Incoming user...")
   var data = req.body
   console.log(data)
+  
+  var user = data.user;
+  //increment the 
   
   if(data.color == "red"){
     teamData.red++
@@ -44,10 +47,19 @@ app.post('/updateTeamData', function(req, res) {
   if(data.color == "yellow"){
     teamData.yellow++
   }
+  
+  if(data.color == "green"){
+    teamData.green++
+  }
 
   console.log(teamData)
   res.send(JSON.stringify(teamData))
   res.end()
+})
+
+app.post('/userclick', function(req, res){
+  console.log("Incoming user click...")
+  var data = req.body
 })
 // The controller/functions etc are in the inner app.js file (public/javascripts/app.js) cuz that's the only way I could get it to work 
 
