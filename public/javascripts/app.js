@@ -5,10 +5,16 @@ var app = window.angular.module('clickerApp', []);
 app.controller('clickerCtrl', clickerCtrl);
 app.directive('battle', battleDirective);
 
+//Note that Team Colors have POINTS, Users have CLICKS
 function clickerCtrl($scope, $http) {
-    document.getElementById('id01').style.display='block'
-    console.log(">NG:CLICKERCTRL called");
+    document.getElementById('id01').style.display='block';
+    //console.log(">NG:CLICKERCTRL called");
     
+    $scope.allUsers = [
+        {name:"Me", clicks: 300},
+        {name:"That Guy", clicks: 42},
+        {name:"Joe", clicks: 157}
+        ];
     $scope.userName = "";
     $scope.redPoints = 0;
     $scope.bluePoints = 0;
@@ -16,70 +22,54 @@ function clickerCtrl($scope, $http) {
     $scope.greenPoints = 0;
     $scope.username = '';
     
+    var host = "";  //change this to the ip/port of whoever is hosting the server
     var red = 0;
     var blue = 0;
     var yellow = 0;
     var green = 0;
 
     $scope.login = function(){
-        console.log("The userName should be updated and sent to server");
-        document.getElementById('id01').style.display='none'
-        $.get('http://54.236.42.112:4200/', {user : $scope.userName}, function(httpResponse){
-           console.log("Initialising the data", httpResponse);
-           
-           
-            updateTextFields($scope);           
+        console.log(">LOGIN(): The userName should be updated and sent to server");
+        document.getElementById('id01').style.display='none';
+        $.post('/user', {userName : $scope.userName}, function(httpResponse){
+           console.log(">LOGIN() got response:", httpResponse);
+           //update scope variables here using data in httpResponse
         });
-        
-    }
+    };
     
+     //Gets a list of all users+clicks from the server DB - maybe put this on a timer later
+    $scope.updateUserList = function() {
+          console.log(">UPDATEUL() called");
+          return $http.get('/comments').success(function(data){
+            console.log(">UPDATEUL(): Updated successfully");
+            angular.copy(data, $scope.comments);  //this copies the stuff coming back from the REST call into the scope comments array
+          }).fail(function(err){
+              console.log(">UPDATEUL(): Err during http Get:" + err);
+          });
+    };
+   // $scope.updateUserList(); //call it first thing so it updates
+    
+    
+    // This adds a point to the team color, and a click to the username at the same time  
     $scope.addPoint = function(teamColor) {
-
-        $.post('http://54.236.42.112:4200/updateTeamData', { color: teamColor }, function(httpResponse) {
-            console.log('response:', httpResponse);
-            var colors = JSON.parse(httpResponse)
-            console.log(colors)
+        $.post(host+'/teampoint', { color: teamColor, userName: username}, function(httpResponse) {
+            console.log('>ADDPOINT(): got response:', httpResponse);
+            var colors = JSON.parse(httpResponse);
+            console.log(">ADDPOINT(): parsed JSON colors:" + colors);
             red = colors.red;
             blue = colors.blue;
             yellow = colors.yellow;
             green = colors.green;
-            var innerCollors = [red, blue, yellow, green]
-            console.log(innerCollors)
+            var innerColors = [red, blue, yellow, green];
 
             $scope.redPoints = colors.red;
             $scope.bluePoints = colors.blue;
             $scope.yellowPoints = colors.yellow;
             $scope.greenPoints = colors.green;
 
-            updateTextFields($scope);
-            updateBackground($scope);
-
+            //updateTextFields($scope);  //if our data binding is working we shouldn't need to do this 
         });
     };
-}
-
-function updateTextFields($scope) {
-    $("#redPts").text("POINTS: " + $scope.redPoints);
-    $("#bluePts").text("POINTS: " + $scope.bluePoints);
-    $("#yellowPts").text("POINTS: " + $scope.yellowPoints);
-    $("#greenPts").text("POINTS: " + $scope.greenProints);
-}
-
-function updateBackground($scope) {
-    //change BG color to match current winning team 
-    var winningPts = Math.max($scope.redPoints, $scope.bluePoints, $scope.yellowPoints);
-    if (winningPts == $scope.redPoints) {
-        //change bg to red
-        $("#mainBody").css("background-color", "#7c0000");
-    }
-    else if (winningPts == $scope.bluePoints) {
-        //change bg to blue
-        $("#mainBody").css("background-color", "#003b9b");
-    }
-    else {
-        //change bg to yellow
-        $("#mainBody").css("background-color", "#917d00");
-    }
 }
 
 function battleDirective() {
