@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 //var app = window.angular.module('app', []); //this line doesn't work in this file
 //app.controller('clickerCtrl', clickerCtrl); //neither does this line
 
-var PointObject = function(name, points){
+var PointObject = function(name, points) {
   var object;
   object.name = name;
   object.points = points;
@@ -26,21 +26,27 @@ var initialHouses = [
   PointObject("blue", 0),
   PointObject("yellow", 0),
   PointObject("green", 0)
-  ];
+];
 
 app.post('/teampoint', function(req, res) {
-  console.log("Incoming user...")
+  console.log("Incoming team point...")
   var data = req.body
   console.log(data)
 
 
   incrementUser(data.username)
   incrementTeam(data.teamname)
-  
+
+
+
+  sendResponse(res)
+});
+
+var sendResponse = function(res) {
   houses.find({}).toArray(function(err, teams) {
     if (err) throw err;
     console.log(teams);
-    users.find({}).toArray(function(err, users){
+    users.find({}).toArray(function(err, users) {
       if (err) throw err;
       var toReturn;
       toReturn.users = users
@@ -48,15 +54,10 @@ app.post('/teampoint', function(req, res) {
       res.json(toReturn)
     })
   });
-  
+}
 
-});
-
-var incrementTeam = function(teamColor){
-  houses.update(
-    { name: teamColor },
-    { $inc: { points: 1 } }
-  )
+var incrementTeam = function(teamColor) {
+  houses.update({ name: teamColor }, { $inc: { points: 1 } })
 }
 
 var incrementUser = function(username) {
@@ -70,9 +71,13 @@ var incrementUser = function(username) {
 
 
 app.post('/user', function(req, res) {
-  console.log("Incoming user click...")
+  console.log("Incoming user ...")
   var data = req.body;
   var username = data.username;
+  users.insertOne(PointObject(username, 0), function(err, innerResponse){
+    if(err) throw err;
+    sendResponse(res)
+  })
 })
 // The controller/functions etc are in the inner app.js file (public/javascripts/app.js) cuz that's the only way I could get it to work 
 
