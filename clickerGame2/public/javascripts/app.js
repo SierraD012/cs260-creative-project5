@@ -122,7 +122,7 @@ function loginDirective() {
         resrict: 'E',
         replace: 'true',
         template: (
-            
+            '<p>Hello Fair Citizens</p>'
         ),
         link: link
     };
