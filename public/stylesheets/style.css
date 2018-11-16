@@ -8,19 +8,12 @@ a {
 }
 
 hr {
-<<<<<<< HEAD
-    border: none;
-    height: 5px;
-    color: #840032; /* old IE */
-    background-color: #840032; /* Modern Browsers */
-=======
   border: none;
   height: 5px;
   color: #efa237;
   /* old IE */
   background-color: #efa237;
   /* Modern Browsers */
->>>>>>> c6d28b6e1d1ad97a066c46ee47f5dfb44c005552
 }
 
 .mainHeader {
@@ -54,23 +47,13 @@ hr {
   /*float: left;*/
   margin: 5px;
   overflow: hidden;
-<<<<<<< HEAD
   
   -webkit-box-shadow: 5px 5px 10px #840032;
           box-shadow: 5px 5px 10px #840032;  
-=======
-
-  -webkit-box-shadow: 5px 5px 10px #111;
-  box-shadow: 5px 5px 10px #111;
->>>>>>> c6d28b6e1d1ad97a066c46ee47f5dfb44c005552
 }
 
 .teamImage:hover {
-<<<<<<< HEAD
    border: 5px solid #d8b82b;
-=======
-  border: 5px solid #7ad0ff;
->>>>>>> c6d28b6e1d1ad97a066c46ee47f5dfb44c005552
 }
 
 /*.teamImage:click {*/
