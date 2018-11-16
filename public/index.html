@@ -34,13 +34,13 @@
 
 <!-- The Modal -->
 <div id="id01" class="modal">
-  <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">
+  <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal" ng-submit='userName(user)'>
     &times;
     </span>
 
     <div class="container">
       <label for="uname"><b>Username</b></label>
-      <input type="text" placeholder="Enter Username" name="uname" required>
+      <input type="text" placeholder="Enter Username" name="uname" ng-model='user' required>
       <button type="submit">Login</button>
     </div>
 </div>

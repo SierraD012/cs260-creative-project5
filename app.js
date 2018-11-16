@@ -27,29 +27,6 @@ app.get('/', function(req, res){
   res.end()
 })
 
-app.post('/secretTunnels', function(req, res){
-  console.log("They done found the secret");
-  var data = req.body;
-  console.log(data);
-  
-    if(data.color == "red"){
-    teamData.red += 5;
-  }
-  
-  if(data.color == "blue"){
-    teamData.blue += 5;
-  }
-  
-  if(data.color == "yellow"){
-    teamData.yellow += 5;
-  }
-
-  console.log(teamData)
-  res.send(JSON.stringify(teamData))
-  res.end()
-  
-  
-})
 
 app.post('/updateTeamData', function(req, res) {
   console.log("Incoming post for update team data...")
