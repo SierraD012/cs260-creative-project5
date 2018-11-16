@@ -7,6 +7,7 @@ app.directive('battle', battleDirective);
 app.directive('login', loginDirective);
 
 function clickerCtrl($scope, $http) {
+    document.getElementById('id01').style.display='block'
     console.log(">NG:CLICKERCTRL called");
 
     $scope.redPoints = 0;
@@ -56,7 +57,7 @@ function clickerCtrl($scope, $http) {
 
             updateTextFields($scope);
             updateBackground($scope);
-
+            
             console.log("\t>AddPoint(): done, scores: R=" + $scope.redPoints + ", B=" + $scope.bluePoints + ", Y=" + $scope.yellowPoints);
         });
     };
