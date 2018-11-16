@@ -1,12 +1,17 @@
-/* This is all placeholder, feel free to change */
 
 body {
-  background-color: #4286f4;
+  background-color: #71757a;
 }
 a {
    pointer-events: none;
  cursor: default;
 }
+
+hr {
+  width: 50%;
+  color: #ff981c;
+}
+
 .mainHeader {
   font-family: 'Sigmar One', cursive;
   font-size: 50px;
