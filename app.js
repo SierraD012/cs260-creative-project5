@@ -49,9 +49,7 @@ var sendResponse = function(res) {
     console.log(teams);
     users.find({}).toArray(function(err, users) {
       if (err) throw err;
-      var toReturn;
-      toReturn.users = users
-      toReturn.teams = teams
+      var toReturn = {users: users, teams: teams}
       res.json(toReturn)
     })
   });
@@ -111,7 +109,6 @@ MongoClient.connect(url, function(err, db) {
     houses = res
 
     houses.stats(function(err, stats) {
-      console.log("getting stats")
       if (err) { console.log(err) }
       if (stats.count == 0) { // If we havent inserted before, put the default in
       console.log("Initializing collection houses")
