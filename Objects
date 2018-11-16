@@ -1,10 +1,7 @@
 tosend:
 {
-red: value,
-green: value,
-blue: value,
-yellow: value,
-username: value,
+teamname: value,
+username: value
 }
 
 {
@@ -14,9 +11,6 @@ username: value
 
 to receive: 
 {
-users: [{username: value, clicks: value}],
-red: value,
-green: value,
-blue: value,
-yellow: value
+users: [{name: value, points: value}],
+teams: [{name: value, points: value}]
 }
